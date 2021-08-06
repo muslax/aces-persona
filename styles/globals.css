@@ -1,9 +1,11 @@
-html,
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -13,4 +15,18 @@ a {
 
 * {
   box-sizing: border-box;
+} */
+
+@layer base {
+  body {
+    @apply antialiased text-gray-800 font-inter;
+  }
+  pre {
+    font-size: .625rem;
+    overflow-x: auto;
+    @apply text-red-500 py-4;
+  }
+  .text-xss {
+    font-size: .6875rem;
+  }
 }
