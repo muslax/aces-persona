@@ -12,6 +12,7 @@ export default withSession(async (req, res) => {
   }
 
   const { username, password, bid, pid } = req.body
+  console.log(username, password, bid, pid)
   const { client } = await connect()
   const session = await client.startSession()
 
@@ -23,11 +24,14 @@ export default withSession(async (req, res) => {
         bid: bid,
       })
 
+      console.log("PERSON", person)
+
       if (!person) return res.status(404).json({
         message: "(1) Username atau password salah."
       })
 
       const verified = bcrypt.compareSync(password, person.hashed_password)
+      console.log("verified", verified)
       if (!verified) return res.status(404).json({
         message: "(2) Username atau password salah."
       })
@@ -39,6 +43,7 @@ export default withSession(async (req, res) => {
       const user = {
         isLoggedIn: true,
         _id: person._id,
+        lid: person.lid,
         pid: person.pid,
         bid: person.bid,
         gid: person.group,
@@ -51,6 +56,7 @@ export default withSession(async (req, res) => {
         position: person.position,
         currentLevel: person.currentLevel,
         targetLevel: person.targetLevel,
+        workingOn: person.workingOn,
         //
         tenant: project.tenant,
         client: project.client,

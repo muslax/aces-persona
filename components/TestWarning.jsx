@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import { useIdleTimer } from "react-idle-timer"
 
 const TestWarning = ({ batchInfo, callback }) => {
-  const [remaining, setRemaining] = useState(batchInfo.waitingTime)
+  const [remaining, setRemaining] = useState(batchInfo.waiting)
 
   const handleOnIdle = () => {
     callback(true)
   }
 
   const { getRemainingTime } = useIdleTimer({
-    timeout: batchInfo.waitingTime,
+    timeout: batchInfo.waiting,
     stopOnIdle: true,
     onIdle: handleOnIdle,
     events: [],
@@ -25,14 +25,16 @@ const TestWarning = ({ batchInfo, callback }) => {
     }, 1000)
   }, [getRemainingTime])
 
-  if (batchInfo.waitingTime == 0 || remaining == 0) return (
+  if (batchInfo.waiting == 0 || remaining == 0) return (
     <p className="font-bold mb-2">Anda dapat mulai mengerjakan sekarang.</p>
   )
 
   return (
     <p className="font-bold mb-2">
       <span className="mr-3">Anda dapat mulai mengerjakan dalam waktu:</span>
-      <Timer ms={remaining} />
+      {batchInfo.strOpenDate} Pukul {batchInfo.strOpenTime} WIB
+      <br/>
+      {/* <Timer ms={remaining} /> */}
     </p>
   )
 }
